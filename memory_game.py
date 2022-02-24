@@ -48,11 +48,11 @@ def game_board() -> list:
 
 
 def user_move(game_board) -> tuple:
-    allowed_row = string.ascii_uppercase[0:CURREMT_ROW]
-    allowed_col = []
-    for i in range(CURREMT_COL):
-        allowed_col.append(i+1)
-    print(allowed_row, allowed_col)
+    allowed_col = string.ascii_uppercase[0:CURREMT_COL]
+    allowed_row = []
+    for i in range(CURREMT_ROW):
+        allowed_row.append(i+1)
+    print('ALLOWED:',allowed_row, allowed_col)
     row, col = -1, -1
     is_empty_flag = False
     is_valid_flag = False
