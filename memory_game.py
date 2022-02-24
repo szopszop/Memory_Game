@@ -2,8 +2,6 @@ import os, random, string
 
 alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
-CURREMT_COL = 10
-CURREMT_ROW = 5
 
 def empty_board() -> list:
     board = [[0]*CURREMT_COL for _ in range(CURREMT_ROW)]
@@ -128,13 +126,27 @@ def game():
         console_clear()
         print_board(current_game_board, the_answear_board)
 
-
-
-
+def choose_level():
+    global CURREMT_COL
+    global CURREMT_ROW
+    print('Welcome to the memory game!')
+    
+    user_input = input("Choose difficulty level(\"Easy\Medium\Hard\"): ").upper()
+    if user_input == "EASY" or user_input.startswith("E"):
+        CURREMT_COL = 5
+        CURREMT_ROW = 4
+    elif user_input == "MEDIUM" or user_input.startswith("M"):
+        CURREMT_COL = 5
+        CURREMT_ROW = 6
+    elif user_input == "HARD" or user_input.startswith("H"):
+        CURREMT_COL = 10
+        CURREMT_ROW = 5
+    
 
 def main():
-    game()
-    #TODO LVL 
+    while True:
+        choose_level()
+        game()
 
 
 if __name__ == "__main__":
