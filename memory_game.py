@@ -65,7 +65,7 @@ def user_move(game_board) -> tuple:
         if len(user_input) not in [2,3]:
             print("Try again.")
             continue
-        if user_input[0] in allowed_row and int(user_input[1:]) in allowed_col:
+        if user_input[0] in allowed_col and int(user_input[1:]) in allowed_row:
             is_valid_flag = True
         else:
             print("Try again.")
