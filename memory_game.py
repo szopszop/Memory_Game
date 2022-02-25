@@ -2,10 +2,10 @@ import os, random, string
 
 alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
+def game_board() -> list:
+    game_board = [[0]* CURREMT_COL for i in range(CURREMT_ROW)]
+    return game_board
 
-def empty_board() -> list:
-    board = [[0]*CURREMT_COL for _ in range(CURREMT_ROW)]
-    return board
 
 def print_board(game_board: list, the_answear_board: list):
 
@@ -23,8 +23,6 @@ def print_board(game_board: list, the_answear_board: list):
         print()   
 
 
-
-
 def answear_board() -> list:
     letter_range = int(CURREMT_COL * CURREMT_ROW / 2)
     alphabet2 = list(string.ascii_uppercase[:letter_range] ) *2
@@ -38,19 +36,13 @@ def answear_board() -> list:
 
     return  the_answear_board
 
-def game_board() -> list:
-    game_board = [[0]* CURREMT_COL for i in range(CURREMT_ROW)]
-    return game_board
 
-
-
-
-def user_move(game_board) -> tuple:
+def user_move(game_board: list) -> tuple:
     allowed_col = string.ascii_uppercase[0:CURREMT_COL]
     allowed_row = []
     for i in range(CURREMT_ROW):
         allowed_row.append(i+1)
-    print('ALLOWED:',allowed_row, allowed_col)
+    print('ALLOWED:', allowed_col, allowed_row)
     row, col = -1, -1
     is_empty_flag = False
     is_valid_flag = False
@@ -87,7 +79,7 @@ def console_clear():
     os.system('cls' if os.name == 'nt' else 'clear')
 
 
-def game():
+def game_init():
     console_clear()
     current_game_board = game_board()
     the_answear_board = answear_board()
@@ -96,13 +88,13 @@ def game():
         print(line)
     for line in the_answear_board:
         print(line)
-
-
     print_board(current_game_board, the_answear_board)
+    return current_game_board,the_answear_board
 
 
-    row1, col1, row2, col2 = -1, -1, -1, -1
-
+def game():
+    current_game_board, the_answear_board = game_init()
+    points = 0
     while True:
         print('Your first move: ')
         row1, col1 = user_move(current_game_board)
@@ -117,34 +109,47 @@ def game():
         if the_answear_board[row1][col1] == the_answear_board[row2][col2]:
             current_game_board[row1][col1] = 2
             current_game_board[row2][col2] = 2
+            points += 1
         else:
             current_game_board[row1][col1] = 0
             current_game_board[row2][col2] = 0
         
+        if has_won(points): break
 
         stop = input('\nPress enter after you memorize it.')
         console_clear()
         print_board(current_game_board, the_answear_board)
 
+
+
 def choose_level():
     global CURREMT_COL
     global CURREMT_ROW
-    print('Welcome to the memory game!')
-    
     user_input = input("Choose difficulty level(\"Easy\Medium\Hard\"): ").upper()
     if user_input == "EASY" or user_input.startswith("E"):
-        CURREMT_COL = 5
-        CURREMT_ROW = 4
+        CURREMT_COL = 3
+        CURREMT_ROW = 2
     elif user_input == "MEDIUM" or user_input.startswith("M"):
         CURREMT_COL = 5
         CURREMT_ROW = 6
     elif user_input == "HARD" or user_input.startswith("H"):
         CURREMT_COL = 10
         CURREMT_ROW = 5
+
+
+def has_won(points):
+    if points == CURREMT_COL * CURREMT_ROW / 2:
+        print('Congratz')
+        play_again = input('Do you wanna play again? (Y/N').upper()
+        if play_again == 'Y':
+            main()
+        else:
+            exit()
     
 
 def main():
     while True:
+        print('\nWelcome to the Memory Game!')
         choose_level()
         game()
 
