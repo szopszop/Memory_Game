@@ -127,8 +127,8 @@ def choose_level():
     global CURREMT_ROW
     user_input = input("Choose difficulty level(\"Easy\Medium\Hard\"): ").upper()
     if user_input == "EASY" or user_input.startswith("E"):
-        CURREMT_COL = 3
-        CURREMT_ROW = 2
+        CURREMT_COL = 5
+        CURREMT_ROW = 4
     elif user_input == "MEDIUM" or user_input.startswith("M"):
         CURREMT_COL = 5
         CURREMT_ROW = 6
